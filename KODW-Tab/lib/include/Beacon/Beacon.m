@@ -134,7 +134,10 @@
         [self.locationManager requestAlwaysAuthorization];
     }
     
+    // Start Monitoring
     [self.locationManager startMonitoringForRegion:self.beaconRegion];
+    
+    [self.locationManager startRangingBeaconsInRegion:self.beaconRegion];
     
     [self.locationManager startMonitoringForRegion:self.beaconRegion1];
     [self.locationManager startMonitoringForRegion:self.beaconRegion2];
