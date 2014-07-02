@@ -29,6 +29,6 @@ static NSString * const kIdentifier = @"SomeIdentifier";
 
 @property (nonatomic,assign) id<BeaconNotificationDelegate> delegate;
 
-- (void) startMonitorBeacon:(NSString*)uuid major:(uint16_t)kMajor minor:(uint16_t)kMinor;
+- (void)getBeacons:(NSString *)address;
 
 @end

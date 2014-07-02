@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 
+#define kGetBeacons @"/api/mobile_apps"
 #define kRequestActivity @"/api/logs"
 #define kRequestMember @"/api/members"
 
@@ -23,8 +24,9 @@
     // Override point for customization after application launch.
     self.beacon = [Beacon new];
     self.beacon.delegate = self;
-    if ([self.beacon respondsToSelector:@selector(startMonitorBeacon:major:minor:)]) {
-        [self.beacon startMonitorBeacon:kUUID_Estimote major:1000 minor:2000];
+    if ([self.beacon respondsToSelector:@selector(getBeacons:)]) {
+        NSString *address = [NSString stringWithFormat:@"%@%@/%@", apiAddress, kGetBeacons, appKey];
+        [self.beacon getBeacons:address];
     }
     
     UIApplication *app = [UIApplication sharedApplication];
