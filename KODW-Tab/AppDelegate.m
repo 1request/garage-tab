@@ -27,8 +27,6 @@
         [self.beacon startMonitorBeacon:kUUID_Estimote major:1000 minor:2000];
     }
     
-    [AppDelegate registerDevice];
-    
     return YES;
 }
 
@@ -60,11 +58,11 @@
 {
     
     
-    NSString *tip = @"Welcome to HKDC !";
+    NSString *tip = @"Welcome to Garage !";
     
     if ([beaconRegion.minor integerValue] == 2000) {
         
-        tip = @"Today's Event : KODW Workshop ";
+        tip = @"Today's Event : Garage Society ";
     }else if ([beaconRegion.minor integerValue] == 2001) {
         
         tip = @"Happy Hour Today ";
@@ -84,11 +82,11 @@
 
 - (void)NotifyWhenExitBeacon:(CLBeaconRegion *)beaconRegion
 {
-    NSString *tip = @"Goodbye, See you next time!";
+    NSString *tip = @"Goodbye, See you next time in Central!";
     
     if ([beaconRegion.minor integerValue] == 2000) {
         
-        tip = @"Today's Event : KODW Conference ";
+        tip = @"Today's Event : Garage Society ";
     }else if ([beaconRegion.minor integerValue] == 2001) {
         
         tip = @"Don't Forget Happy Hour Today :) ";
@@ -133,8 +131,8 @@
     
     NSString *deviceId = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     
-    NSArray *objects = [NSArray arrayWithObjects:[beaconId UUIDString], [kMajor stringValue], [kMinor stringValue], deviceId, time, nil];
-    NSArray *keys = [NSArray arrayWithObjects:@"uuid", @"major", @"minor", @"deviceId", @"time", nil];
+    NSArray *objects = [NSArray arrayWithObjects:[beaconId UUIDString], [kMajor stringValue], [kMinor stringValue], deviceId, appKey, time, nil];
+    NSArray *keys = [NSArray arrayWithObjects:@"uuid", @"major", @"minor", @"deviceId", @"appKey", @"time", nil];
     NSDictionary *jsonDict = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
     
     NSError *error;
@@ -164,7 +162,7 @@
     
 }
 
-+ (void)registerDevice
++ (void)sendToken
 {
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"done"]) {
         return;

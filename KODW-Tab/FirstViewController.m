@@ -7,7 +7,6 @@
 //
 
 #import "FirstViewController.h"
-#define PROTO_IOS @"https://explore.proto.io/share/?id=63fcd36d-2f32-4210-97af-9463103a0ae0&v=4"
 
 @interface FirstViewController ()
             
@@ -22,7 +21,7 @@
     NSString *deviceId = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     NSLog(@"deviceId: %@", deviceId);
     self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 519)];
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://kodw-ios.homesmartly.com/"]]];
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.thegaragesociety.com/"]]];
     
     
 //    NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html" inDirectory:@"html"];
