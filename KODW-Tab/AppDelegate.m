@@ -12,9 +12,9 @@
 #define kRequestActivity @"/api/logs"
 #define kRequestMember @"/api/members"
 
-@interface AppDelegate ()
-            
-
+@interface AppDelegate () {
+    UIWebView *webView;
+}
 @end
 
 @implementation AppDelegate
@@ -42,6 +42,35 @@
     [self clearNotifications];
     
     return YES;
+}
+
+- (void)popWebView
+{
+    CGRect screenFrame = [[UIScreen mainScreen] bounds];
+    webView = [[UIWebView alloc] initWithFrame:screenFrame];
+    
+//    NSString *youTubeVideoHTML = @"<!DOCTYPE html><html><head><style>body{margin:0px 0px 0px 0px;}</style></head> <body> <div id=\"player\"></div> <script> var tag = document.createElement('script'); tag.src = \"http://www.youtube.com/player_api\"; var firstScriptTag = document.getElementsByTagName('script')[0]; firstScriptTag.parentNode.insertBefore(tag, firstScriptTag); var player; function onYouTubePlayerAPIReady() { player = new YT.Player('player', { width:'%0.0f', height:'%0.0f', videoId:'%@', events: { 'onReady': onPlayerReady, } }); } function onPlayerReady(event) { event.target.playVideo(); } </script> </body> </html>";
+//    
+//    NSString *html = [NSString stringWithFormat:youTubeVideoHTML, screenFrame.size.width, screenFrame.size.height, @"sUIqfjpInxY"];
+//    
+//    [webView loadHTMLString:html baseURL:[[NSBundle mainBundle] resourceURL]];
+    
+    NSString *url = [NSString stringWithFormat:@"%@", @"https://www.youtube.com/watch?v=sUIqfjpInxY"];
+    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
+    
+    UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    closeButton.backgroundColor = [UIColor whiteColor];
+    closeButton.frame = CGRectMake(10, 10, 50, 50);
+    [closeButton addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
+    [webView addSubview:closeButton];
+    
+    [self.window makeKeyAndVisible];
+    [self.window addSubview:webView];
+}
+
+- (void)close
+{
+    [webView removeFromSuperview];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -113,7 +142,16 @@
 
 - (void)NotifyWhenEntryBeacon:(CLBeaconRegion *)beaconRegion
 {
-    
+    if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive) {
+        double delayInSeconds = 2.0;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [self popWebView];
+        });
+        NSLog(@">>> foreground <<<");
+    } else {
+        NSLog(@">>> background <<<");
+    }
     
     NSString *tip = @"Welcome to Garage !";
     
