@@ -169,7 +169,10 @@
     //                         region.proximityUUID.UUIDString];   // Major and minor are not available at the monitoring stage
     notification.alertAction = NSLocalizedString(@"View Details", nil);
     notification.soundName = UILocalNotificationDefaultSoundName;
-    notification.regionTriggersOnce = YES;
+    
+    if ([notification respondsToSelector:@selector(regionTriggersOnce)]) {
+        notification.regionTriggersOnce = YES;
+    }
     
     if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
         UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
