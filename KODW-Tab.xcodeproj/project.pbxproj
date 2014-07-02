@@ -40,6 +40,7 @@
 		D1541F1F1948B4910069602E /* Beacon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Beacon.m; sourceTree = "<group>"; };
 		D1541F211948B4F80069602E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D1541F231948B5120069602E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		D1E9BF39196465400019F3CB /* KODW-Tab.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "KODW-Tab.entitlements"; sourceTree = "<group>"; };
 		D1FEFBF11948850600812949 /* KODW-Tab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "KODW-Tab.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1FEFBF51948850600812949 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D1FEFBF61948850600812949 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -155,6 +156,7 @@
 		D1FEFBF41948850600812949 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D1E9BF39196465400019F3CB /* KODW-Tab.entitlements */,
 				D1FEFBF51948850600812949 /* Info.plist */,
 				D1FEFBF61948850600812949 /* main.m */,
 			);
@@ -229,6 +231,12 @@
 						CreatedOnToolsVersion = 6.0;
 						DevelopmentTeam = LVCQEY3SLS;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Keychain = {
+								enabled = 1;
+							};
 							com.apple.iOS = {
 								enabled = 0;
 							};
@@ -404,10 +412,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = "KODW-Tab/KODW-Tab.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "KODW-Tab/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "8F2ED4B0-50D2-460A-8E8B-40AE4C0D42E2";
 			};
 			name = Debug;
 		};
@@ -416,10 +427,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = "KODW-Tab/KODW-Tab.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "KODW-Tab/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "8F2ED4B0-50D2-460A-8E8B-40AE4C0D42E2";
 			};
 			name = Release;
 		};
