@@ -27,10 +27,15 @@
         [self.beacon startMonitorBeacon:kUUID_Estimote major:1000 minor:2000];
     }
     
-    UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
-    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
-    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-    [[UIApplication sharedApplication] registerForRemoteNotifications];
+    UIApplication *app = [UIApplication sharedApplication];
+    if ([app respondsToSelector:@selector(registerForRemoteNotifications)]) {
+        UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
+        [app registerUserNotificationSettings:settings];
+        [app registerForRemoteNotifications];
+    } else {
+        [app registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    }
     
     [self clearNotifications];
     
