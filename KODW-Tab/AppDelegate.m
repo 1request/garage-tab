@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 
 #define kGetBeacons @"/api/mobile_apps"
+#define kPostToken @"/api/push_tokens"
+
 #define kRequestActivity @"/api/logs"
 #define kRequestMember @"/api/members"
 
@@ -103,6 +105,8 @@
                           stringByReplacingOccurrencesOfString: @" " withString: @""];
     
     NSLog(@"My Device token is: %@", devToken);
+    
+    [AppDelegate sendToken:devToken];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
@@ -268,18 +272,14 @@
     
 }
 
-+ (void)sendToken
++ (void)sendToken:(NSString *)token
 {
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"done"]) {
-        return;
-    }
-    
     NSLog(@"registering first time...");
     
     NSString *deviceId = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     
-    NSArray *objects = [NSArray arrayWithObjects:@"jdFYjuCqWyCdrywPT", deviceId, deviceId, nil];
-    NSArray *keys = [NSArray arrayWithObjects:@"appId", @"username", @"deviceId", nil];
+    NSArray *objects = [NSArray arrayWithObjects:appKey, deviceId, @"ios", token, nil];
+    NSArray *keys = [NSArray arrayWithObjects:@"appKey", @"deviceId", @"pushType", @"pushToken", nil];
     NSDictionary *jsonDict = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
     
     NSError *error;
@@ -290,7 +290,7 @@
     
     NSLog(@"jsonRequest is %@", jsonString);
     
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", apiAddress, kRequestMember]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", apiAddress, kPostToken]];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
