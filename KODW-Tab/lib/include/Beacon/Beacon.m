@@ -92,8 +92,31 @@
             [self.locationManager startRangingBeaconsInRegion:beaconRegion];
             [self.locationManager startMonitoringForRegion:beaconRegion];
             
+            NSArray *actions = [object objectForKey:@"actions"];
+            for (NSDictionary *action in actions) {
+                NSString *url = [action objectForKey:@"url"];
+                // REMOVE ME //
+                url = @"http://www.reque.st/";
+                // REMOVE ME //
+                [[NSUserDefaults standardUserDefaults] setObject:url forKey:@"url"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+            }
+            
             count++;
         }
+        
+        // REMOVE ME //
+        NSString *uuid = @"B9407F30-F5F8-466E-AFF9-25556B57FE6D";
+        NSUUID *proximityUUID = [[NSUUID alloc] initWithUUIDString:uuid];
+        CLBeaconRegion *beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID major:1000 minor:2000 identifier:@"beacon"];
+        beaconRegion.notifyEntryStateOnDisplay = YES;
+        beaconRegion.notifyOnEntry = YES;
+        beaconRegion.notifyOnExit = YES;
+        
+        [self.locationManager startRangingBeaconsInRegion:beaconRegion];
+        [self.locationManager startMonitoringForRegion:beaconRegion];
+        // REMOVE ME //
+
     }];
 }
 
@@ -164,8 +187,7 @@
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLBeaconRegion *)region withError:(NSError *)error
 {
     NSString *message = [NSString stringWithFormat:@"error: %@ / region: %@", [error description], region.minor];
-    UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"KODW" message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [view show];
+    NSLog(@"%@", message);
 }
 
 @end

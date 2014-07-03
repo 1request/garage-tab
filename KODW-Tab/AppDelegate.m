@@ -55,7 +55,12 @@
 //    [webView loadHTMLString:html baseURL:[[NSBundle mainBundle] resourceURL]];
     webView.hidden = NO;
     
+    // REMOVE ME //
     NSString *url = [NSString stringWithFormat:@"%@", @"https://www.youtube.com/watch?v=sUIqfjpInxY"];
+    // REMOVE ME //
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"url"] != nil) {
+        url = [[NSUserDefaults standardUserDefaults] objectForKey:@"url"];
+    }
     [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
 
 }
@@ -175,8 +180,6 @@
         tip = @"Happy Hour Today ";
     }
     
-    tip = [NSString stringWithFormat:@"Welcome! major: %@ / minor: %@", beaconRegion.major, beaconRegion.minor];
-    
     [self sendLocalNotificationWithMessage:tip];
     
     
@@ -200,7 +203,7 @@
     }
     
     
-    [self sendLocalNotificationWithMessage:tip];
+//    [self sendLocalNotificationWithMessage:tip];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"Exit" object:nil];
     
